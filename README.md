@@ -12,7 +12,7 @@
   
     - Open your terminal or command prompt.
   
-    - Navigate to the directory where you want to clone the project.
+    - Navigate to the directory where you want to clone the project. 
   
     - Run the command: git clone https://github.com/RohitAayushmaan/Text-Toolkit.git
 
