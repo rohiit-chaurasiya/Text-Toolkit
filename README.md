@@ -24,6 +24,7 @@
 
 3. Start the Development Server:
 
-    - Run the command: npm start
+    - Run the command: npm start(for Frontend)
+    - Run the command: nodemon(for backend)
   
     - This will launch the React application locally and provide a URL (usually localhost:3000) to access the application in your browser.
