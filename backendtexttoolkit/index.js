@@ -21,8 +21,6 @@ const User = mongoose.model('newUsers', newUsersSchema);
 
 
 
-
-
 const server=express();
 
 server.use(cors());
