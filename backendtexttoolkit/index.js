@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/texttoolkit');
+  await mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
     console.log("Database Connected");
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
