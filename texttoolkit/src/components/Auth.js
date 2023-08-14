@@ -23,7 +23,7 @@ const Auth=()=> {
         
         e.preventDefault();
         
-        const response=await fetch('https://text-toolkit-backend.vercel.app/signin',{
+        const response=await fetch('/signin',{
         method:'POST',
         body:JSON.stringify(form), 
         headers:{
