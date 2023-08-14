@@ -9,7 +9,8 @@ server.use(cors(
   {
     origin:["https://text-toolkit.vercel.app"],
     methods:["POST", "GET"],
-    credentials: true
+    credentials: true,
+    optionsSuccessStatus: 204
   }
 ));
 server.use(express.json());
