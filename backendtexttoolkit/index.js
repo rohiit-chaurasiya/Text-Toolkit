@@ -30,11 +30,6 @@ const newUsersSchema = new mongoose.Schema({
 });
 const User = mongoose.model('newUsers', newUsersSchema);
 
-const server=express();
-
-server.use(cors());
-server.use(bodyParser.json());
-
 server.post('/signin',async (req,res)=>{
   try {
 
