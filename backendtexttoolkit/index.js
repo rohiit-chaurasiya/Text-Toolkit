@@ -7,12 +7,12 @@ const server=express();
 
 server.use(cors(
   {
-    origin:["https://text-toolkit.vercel.app/signup"],
-    methos:["POST", "GET"],
+    origin:["https://text-toolkit.vercel.app"],
+    methods:["POST", "GET"],
     credentials: true
   }
 ));
-server.use(bodyParser.json());
+server.use(express.json());
 
 
 main().catch(err => console.log(err));
