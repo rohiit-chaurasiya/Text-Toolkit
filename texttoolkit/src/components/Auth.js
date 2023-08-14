@@ -25,7 +25,7 @@ const Auth=()=> {
         
         const response=await fetch('https://text-toolkit-backend.vercel.app/signin',{
         method:'POST',
-        body:JSON.stringify(form),
+        body:JSON.stringify(form), 
         headers:{
             'Content-Type':'application/json',
             'Access-Control-Allow-Origin': 'https://text-toolkit-backend.vercel.app/signin'
