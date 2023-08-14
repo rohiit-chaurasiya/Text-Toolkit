@@ -3,11 +3,22 @@ const cors=require('cors');
 const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 
+const server=express();
+
+server.use(cors(
+  {
+    origin:["https://text-toolkit.vercel.app"],
+    methos:["POST", "GET"],
+    credentials: true
+  }
+));
+server.use(bodyParser.json());
+
 
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/texttoolkit');
+  await mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
     console.log("Database Connected");
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
@@ -21,12 +32,15 @@ const User = mongoose.model('newUsers', newUsersSchema);
 
 
 
+<<<<<<< HEAD
 const server=express();
 
 server.use(cors());
 server.use(bodyParser.json());
 
 
+=======
+>>>>>>> fdf3f7dc1ae31334335181fe1bc0b62fadd85378
 server.post('/signin',async (req,res)=>{
   try {
 
