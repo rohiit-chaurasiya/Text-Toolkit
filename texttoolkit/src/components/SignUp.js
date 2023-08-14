@@ -43,7 +43,7 @@ const SignUp=()=> {
         const response=await axios.post("https://text-toolkit-backend.vercel.app/signup", form, {
         headers:{
             'Content-Type':'application/json',
-            'Access-Control-Allow-Origin': '*'
+            
         }
         })
 
