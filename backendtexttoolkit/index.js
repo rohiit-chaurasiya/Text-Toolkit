@@ -4,9 +4,13 @@ const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 
 const server=express();
+const corsOptions = {
+  origin: 'https://text-toolkit.vercel.app',
+  credentials: true,
+};
 
-server.use(cors());
-server.use(express.json());
+server.use(cors(corsOptions));
+server.use(bodyParser.json());
 
 
 main().catch(err => console.log(err));
