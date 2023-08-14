@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {NavLink, useNavigate} from "react-router-dom"
 import '../css/login.css'
-// import axios from 'axios';
+import axios from 'axios';
 import { useUsername } from './UsernameContext';
 
 
@@ -10,6 +10,7 @@ const Auth=()=> {
     const navigate = useNavigate();
     const [form,setForm]=useState({});
     const [errorMessage, setErrorMessage] = useState('');
+    axios.defaults.withCredentials=true;
 
     const logInForm =(e)=>{
         console.log(e.target.value,e.target.name);
