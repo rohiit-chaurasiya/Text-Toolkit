@@ -25,7 +25,13 @@ const User = mongoose.model('newUsers', newUsersSchema);
 
 const server=express();
 
-server.use(cors());
+server.use(cors(
+  {
+    origin:["https://text-toolkit.vercel.app/"],
+    methos:["POST", "GET"],
+    credentials: true
+  }
+));
 server.use(bodyParser.json());
 
 
