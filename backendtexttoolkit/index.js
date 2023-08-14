@@ -30,6 +30,10 @@ const newUsersSchema = new mongoose.Schema({
 });
 const User = mongoose.model('newUsers', newUsersSchema);
 
+server.get("/", (req,res) =>{
+  res.json("TextToolKit");
+});
+
 server.post('/signin',async (req,res)=>{
   try {
 
