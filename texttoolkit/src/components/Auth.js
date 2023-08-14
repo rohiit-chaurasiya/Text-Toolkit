@@ -23,9 +23,7 @@ const Auth=()=> {
         
         e.preventDefault();
         
-        const response=await fetch('/signin',{
-        method:'POST',
-        body:JSON.stringify(form), 
+        const response=await axios.post('https://text-toolkit-backend.vercel.app/signin', form, {
         headers:{
             'Content-Type':'application/json',
             'Access-Control-Allow-Origin': '*'
