@@ -15,8 +15,11 @@ async function main() {
 const newUsersSchema = new mongoose.Schema({
     userName: String,
     userPassword: String
+
 });
 const User = mongoose.model('newUsers', newUsersSchema);
+
+
 
 
 
@@ -26,17 +29,55 @@ server.use(cors());
 server.use(bodyParser.json());
 
 
-
-
 server.post('/signin',async (req,res)=>{
-    let user=new User();
-    user.userName=req.body.userName;
-    user.userPassword=req.body.userPassword;
-    const doc= await user.save();
+  try {
 
-    console.log(doc);
-    res.json(doc);
+    const { userName, userPassword } = req.body;
+    const user = await User.findOne({ userName });
+
+    if (!user) {
+      console.log("user not found");
+      return res.status(401).json({ message: 'User not found' });
+    }
+
+    if (user.userPassword !== userPassword) {
+      console.log("incorrect password");
+      return res.status(401).json({ message: 'Incorrect password' });
+    }
+    console.log("user found");
+
+    res.json({ loginUserName: user.userName });
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+
+    // let user=new User();
+    // user.userName=req.body.userName;
+    // user.userPassword=req.body.userPassword;
+    // const doc= await user.save();
+
+    // const loginUserName=user.userName;
+
+    // console.log(user.userName);
+    // res.json({loginUserName});
     // res.send('Hello World!!');
+})
+
+
+server.post('/signup',async (req,res)=>{
+  let user=new User();
+  user.userName=req.body.userName;
+  user.userPassword=req.body.userPassword;
+  
+  const doc= await user.save();
+
+  // const loginUserName=user.userName;
+
+  console.log("User Registered");
+
+  res.send({success:user.userName});
 })
 
 server.listen(8080,()=>{
