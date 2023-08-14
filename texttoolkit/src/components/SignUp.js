@@ -8,6 +8,7 @@ const SignUp=()=> {
     const navigate = useNavigate();
     const [form,setForm]=useState({});
     const [passwordError, setPasswordError] = useState('');
+    axios.defaults.withCredentials=true;
 
 
     const newForm =(e)=>{
