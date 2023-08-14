@@ -26,7 +26,7 @@ const Auth=()=> {
         const response=await axios.post('https://text-toolkit-backend.vercel.app/signin', form, {
         headers:{
             'Content-Type':'application/json',
-            'Access-Control-Allow-Origin': '*'
+            
         }
         })
 
