@@ -38,7 +38,7 @@ const SignUp=()=> {
         e.preventDefault();
         validatePassword();
         
-        const response=await fetch('http://localhost:8080/signup',{
+        const response=await fetch('text-toolkit-backend.vercel.app/signup',{
         method:'POST',
         body:JSON.stringify(form),
         headers:{
