@@ -32,7 +32,7 @@ server.get("/", (req,res) =>{
   res.json("TextToolKit");
 });
 
-server.post('/signin',async (req,res)=>{
+server.post('/signin',cors(corsOptions),async (req,res)=>{
   try {
 
     const { userName, userPassword } = req.body;
