@@ -27,7 +27,7 @@ const server=express();
 
 server.use(cors(
   {
-    origin:["https://text-toolkit.vercel.app/"],
+    origin:["https://text-toolkit.vercel.app"],
     methos:["POST", "GET"],
     credentials: true
   }
