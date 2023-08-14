@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {NavLink , useNavigate} from "react-router-dom"
+import axios from 'axios';
 import '../css/signup.css'
 // import axios from 'axios';
 
