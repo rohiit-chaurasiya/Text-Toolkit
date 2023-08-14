@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
+import {NavLink, useNavigate} from "react-router-dom"
 import '../css/login.css'
+// import axios from 'axios';
+import { useUsername } from './UsernameContext';
 
 
-export default function Auth() {
+const Auth=()=> {
+    const { setUsername } = useUsername();
+    const navigate = useNavigate();
     const [form,setForm]=useState({});
+    const [errorMessage, setErrorMessage] = useState('');
 
     const logInForm =(e)=>{
         console.log(e.target.value,e.target.name);
@@ -13,7 +19,9 @@ export default function Auth() {
         })
     }
     const signInForm=async(e)=>{
+        
         e.preventDefault();
+        
         const response=await fetch('http://localhost:8080/signin',{
         method:'POST',
         body:JSON.stringify(form),
@@ -21,10 +29,35 @@ export default function Auth() {
             'Content-Type':'application/json'
         }
         })
-        const data=await response.json();
-        console.log(data); // show that the 
+
+
+        if (response.ok) {
+            const data = await response.json();
+            const name = data.loginUserName;
+      
+            if (name) {
+              setUsername(name);
+              console.log("Log In Successfully");
+              navigate('/home'); // Change this to your home page route
+            } else {
+              setErrorMessage('User not found'); // Display error message
+            }
+          }
+        else 
+        {
+            setErrorMessage('Login failed'); // Display error message
+        }
+
+
+        // const data=await response.json();
+        // const name=data.userName;
+        
+        // console.log("Log In Successfully"); // show that the 
+
+        // setUsername(name);
         // console.log(response); // show that the connet with backend server localhost
         // console.log(form); //form data print
+
 
     }
 
@@ -32,40 +65,45 @@ export default function Auth() {
   return (
     <>
 
-    <div  style={{ marginTop: '65px' }}>
-        <div className="container">
-            <div className="row justify-content-center">
-                
-                <div className="col-10 col-lg-6 col-md-6  login-box">
-                    <div className="col-lg-12 login-title">
-                        
-                        ADMIN PANEL
-                    </div>
-                    <div className="col-lg-12 login-form">
-                        <div className="col-lg-12 login-form">
-                            <form onSubmit={signInForm}>
-                                <div className="form-group">
-                                    <label className="form-control-label">USERNAME</label>
-                                    <input type="text" onChange={logInForm} name='userName' className="form-userN"/>
-                                </div>
-                                <div className="form-group">
-                                    <label className="form-control-label">PASSWORD</label>
-                                    <input type="password" onChange={logInForm} name='userPassword' className="form-control"/>
-                                </div>
-                                <div className="col-lg-12 loginbttm">
-                                    <div className="col-lg-6 login-btm login-text"></div>
-                                    <div className="col-lg-6 login-btm login-button">
-                                        <button type="submit" className="btn btn-outline-primary">LOGIN</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+<div className='logincss' style={{ marginTop: '60px'}}>
+        <div id="card">
+            <div id="card-content">
+            <div id="card-title">
+                <h2>USER LOGIN</h2>
+                <div className="underline-title"></div>
+            </div>
+            <p style={{ color: 'red', fontSize:'13px' }}>{errorMessage}</p>                
+
+            <form onSubmit={signInForm} className="form">
+
+                <div className="form-group">
+                <label className="form-control-label" htmlFor="username" style={{paddingTop:'13px'}}>
+                    &nbsp;Email
+                </label>
+                <input onChange={logInForm} id="username" name='userName' className="form-control form-content" type="email" autoComplete="on" required />
                 </div>
+                <div className="form-border"></div>
+
+
+                <div className="form-group">
+                <label htmlFor="password" style={{paddingTop:"22px"}}>&nbsp;Password</label>
+                <input id="password" onChange={logInForm}  className="form-control form-content" type="password" name="userPassword" required />
+                <div className="form-border"></div>                
+                <legend id="forgot-pass">Forgot password?</legend>
+                
+                </div>
+
+                <input id="submit-btn" type="submit" name="submit" value="Log In" />
+                <NavLink id="signup" style={{display:'inline', fontSize:'16px'}}  className="nav-link" to="/signup">Don't have account yet?</NavLink>
+
+            </form>
             </div>
         </div>
-    </div>
 
+        
+    </div>
     </>
   )
 }
+
+export default Auth;

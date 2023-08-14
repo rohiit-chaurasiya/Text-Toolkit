@@ -8,7 +8,6 @@ export default function Home() {
     const handleOnChange=(event)=>{
 
         // setText(event.target.value);
-    
         const newText = event.target.value;
         setText(newText);
         setOriginalText(newText);
@@ -26,6 +25,29 @@ export default function Home() {
         setText(newText);
     
       }
+      
+
+      function capitalizeAfterPeriods(input)
+      {
+        let result = input.toLowerCase();
+
+        result = result.replace(/(^|\. *)([a-z])/g, function(match, separator, firstLetter) {
+            return separator + firstLetter.toUpperCase();
+        });
+
+        return result;
+
+        
+      }
+      
+
+      const SentenceCase=()=>{
+        setOriginalText(text)
+        const newText = capitalizeAfterPeriods(text);
+        setText(newText);
+    
+      }
+
     
       const convertTitleCase=()=>{
         setOriginalText(text)
@@ -95,7 +117,7 @@ export default function Home() {
       <div className="container">
       
         <div className='row justify-content-md-center'>
-          <div className='col col-lg-8'>
+          <div className='col col-lg-9'>
             <div className="mb-3">
               <textarea className="form-control" placeholder='Enter text here' value={text} onChange={handleOnChange} id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
@@ -113,6 +135,11 @@ export default function Home() {
               <div className="button-row mx-2">
                 <button className="btn btn-info mx-2 my-2" onClick={convertTitleCase}>
                   Convert to Titlecase
+                </button>
+              </div>
+              <div className="button-row mx-2">
+                <button className="btn btn-info mx-2 my-2" onClick={SentenceCase}>
+                  Convert to Sentence Case
                 </button>
               </div>
               <div className="button-row mx-2">

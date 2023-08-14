@@ -23,20 +23,20 @@ export default function About() {
     <div className="container" style={{ marginTop: '85px'}}>
         <div className="row justify-content-center">
             <div className="col-12 col-lg-4 col-md-6" style={{ textAlign:'center', fontSize:'20px' }}>
-                <div class="card">
-                    <img class="card-img-top" src={card2}  alt='card'/>
-                    <div class="card-body">
-                        <p class="card-text">Our website is built with React.js for a smooth user experience, Node.js and Express.js
+                <div className="card">
+                    <img className="card-img-top" src={card2}  alt='card'/>
+                    <div className="card-body">
+                        <p className="card-text">Our website is built with React.js for a smooth user experience, Node.js and Express.js
                          for server-side handling and communication, and MongoDB for reliable and scalable data storage.</p>
                     </div>
                 </div>
             </div>
 
             <div className="col-12 col-lg-4 col-md-6" style={{ textAlign:'center', fontSize:'20px' }}>
-                <div class="card">
-                    <img class="card-img-top" src={card2}  alt='card'/>
-                    <div class="card-body">
-                        <p class="card-text">Simplify text manipulation with our user-friendly platform.
+                <div className="card">
+                    <img className="card-img-top" src={card2}  alt='card'/>
+                    <div className="card-body">
+                        <p className="card-text">Simplify text manipulation with our user-friendly platform.
                          Try it today and experience the efficiency of React.js, Node.js, Express.js, and MongoDB."</p>
                     </div>
                 </div>
