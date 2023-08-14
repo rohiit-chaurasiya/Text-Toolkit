@@ -45,7 +45,7 @@ const SignUp=()=> {
         body:JSON.stringify(form),
         headers:{
             'Content-Type':'application/json',
-            'Access-Control-Allow-Origin': 'https://text-toolkit-backend.vercel.app/signup'
+            'Access-Control-Allow-Origin': '*'
         }
         })
 
