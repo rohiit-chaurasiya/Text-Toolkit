@@ -3,6 +3,17 @@ const cors=require('cors');
 const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 
+const server=express();
+
+server.use(cors(
+  {
+    origin:["https://text-toolkit.vercel.app"],
+    methos:["POST", "GET"],
+    credentials: true
+  }
+));
+server.use(bodyParser.json());
+
 
 main().catch(err => console.log(err));
 
@@ -19,20 +30,6 @@ const newUsersSchema = new mongoose.Schema({
 });
 const User = mongoose.model('newUsers', newUsersSchema);
 
-
-
-
-
-const server=express();
-
-server.use(cors(
-  {
-    origin:["https://text-toolkit.vercel.app"],
-    methos:["POST", "GET"],
-    credentials: true
-  }
-));
-server.use(bodyParser.json());
 
 
 server.post('/signin',async (req,res)=>{
