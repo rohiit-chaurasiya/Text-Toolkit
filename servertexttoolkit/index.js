@@ -42,6 +42,11 @@ app.post('/signin',async (req,res)=>{
 
     const { userName, userPassword } = req.body;
     const user = await User.findOne({ userName });
+    // Set CORS headers in the response
+  res.header('Access-Control-Allow-Origin', 'https://text-toolkit.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'POST, GET');
+  res.header('Access-Control-Allow-Credentials', 'true');
+
 
     if (!user) {
       console.log("user not found");
@@ -84,6 +89,11 @@ app.post('/signup',async (req,res)=>{
   // const loginUserName=user.userName;
 
   console.log("User Registered");
+  // Set CORS headers in the response
+  res.header('Access-Control-Allow-Origin', 'https://text-toolkit.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'POST, GET');
+  res.header('Access-Control-Allow-Credentials', 'true');
+
 
   res.send({success:user.userName});
 })
