@@ -38,11 +38,12 @@ const SignUp=()=> {
         e.preventDefault();
         validatePassword();
         
-        const response=await fetch('https://text-toolkit-backend.vercel.app/signup',{
+        const response=await fetch('http://localhost:8080/signup',{
         method:'POST',
         body:JSON.stringify(form),
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Access-Control-Allow-Origin': '*'
         }
         })
 
