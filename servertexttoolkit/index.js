@@ -40,22 +40,17 @@ app.get("/", (req, res) => {
 app.post('/signin',async (req,res)=>{
   try {
     res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-  res.setHeader(
+    res.setHeader('Access-Control-Allow-Origin', 'https://text-toolkit.vercel.app')
+    // another common pattern
+    // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+    res.setHeader(
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
   )
 
     const { userName, userPassword } = req.body;
     const user = await User.findOne({ userName });
-    // Set CORS headers in the response
-  res.header('Access-Control-Allow-Origin', 'https://text-toolkit.vercel.app');
-  res.header('Access-Control-Allow-Methods', 'POST, GET');
-  res.header('Access-Control-Allow-Credentials', 'true');
-
 
     if (!user) {
       console.log("user not found");
