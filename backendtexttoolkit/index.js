@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 
 const server=express();
 const corsOptions = {
-  origin: 'https://text-toolkit.vercel.app',
-  credentials: true,
+  origin: 'https://text-toolkit.vercel.app/signup',
+  methods: 'GET, PUT',
+  credentials: true
 };
 
 server.use(cors(corsOptions));
