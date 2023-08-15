@@ -7,7 +7,7 @@ const app=express();
 
 app.use(cors(
   {
-        origin: ["https://text-toolkit.vercel.app"],
+        origin: ["https://deploy-mern-frontend-sepia.vercel.app"],
         methods: ["POST", "GET"],
         credentials: true
     }
