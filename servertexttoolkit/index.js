@@ -4,28 +4,45 @@ const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 
 const server=express();
+<<<<<<< HEAD:servertexttoolkit/index.js
 
 server.use(cors());
 server.use(bodyParser.json());
+=======
+ 
+server.use(cors(
+    {
+        origin: ["https://text-toolkit.vercel.app"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
+>>>>>>> 20765168ec98c0e6fb4e9ff56907bd6faaf4ebce:backendtexttoolkit/index.js
 
+server.use(bodyParser.json());
 
 main().catch(err => console.log(err));
 
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/texttoolkit');
     console.log("Database Connected");
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
+
 
 const newUsersSchema = new mongoose.Schema({
     userName: String,
     userPassword: String
-
 });
 const User = mongoose.model('newUsers', newUsersSchema);
 
+server.get("/", (req,res) =>{
+  res.json("TextToolKit");
+});
 
+<<<<<<< HEAD:servertexttoolkit/index.js
 
+=======
+>>>>>>> 20765168ec98c0e6fb4e9ff56907bd6faaf4ebce:backendtexttoolkit/index.js
 server.post('/signin',async (req,res)=>{
   try {
 
@@ -49,32 +66,21 @@ server.post('/signin',async (req,res)=>{
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-
-    // let user=new User();
-    // user.userName=req.body.userName;
-    // user.userPassword=req.body.userPassword;
-    // const doc= await user.save();
-
-    // const loginUserName=user.userName;
-
-    // console.log(user.userName);
-    // res.json({loginUserName});
-    // res.send('Hello World!!');
 })
 
 
 server.post('/signup',async (req,res)=>{
-  let user=new User();
-  user.userName=req.body.userName;
-  user.userPassword=req.body.userPassword;
-  
-  const doc= await user.save();
-
-  // const loginUserName=user.userName;
-
-  console.log("User Registered");
-
-  res.send({success:user.userName});
+  const {userName, userPassword} = req.body;
+  User.findOne({userName: userName})
+  .then(user => {
+        if(user) {
+            res.json("Already have an account")
+        } else {
+            User.create({userName: userName, userPassword: userPassword})
+            .then(() => res.send({ success: user.userName }))
+            .catch(err => res.json(err))
+        }
+    }).catch(err => res.json(err))
 })
 
 server.listen(8080,()=>{

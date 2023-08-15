@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {NavLink , useNavigate} from "react-router-dom"
+import axios from 'axios';
 import '../css/signup.css'
 // import axios from 'axios';
 
@@ -8,6 +9,7 @@ const SignUp=()=> {
     const navigate = useNavigate();
     const [form,setForm]=useState({});
     const [passwordError, setPasswordError] = useState('');
+    axios.defaults.withCredentials=true;
 
 
     const newForm =(e)=>{
@@ -48,7 +50,7 @@ const SignUp=()=> {
         })
 
         if (response.ok) {
-            const data = await response.json();
+            const data = response.data;
             const name = data.success;
             console.log(name);
             navigate('/signin');
@@ -57,16 +59,10 @@ const SignUp=()=> {
         else{
             console.log("Sign Up Failed")
         }
-        // console.log(response); // show that the connet with backend server localhost
-        // console.log(form); //form data print
-
     }
-
-
-
+    
   return (
     <>
-
     <div style={{ marginTop: '60px'}}>
         <div id="card">
             <div id="card-content">
@@ -102,12 +98,9 @@ const SignUp=()=> {
 
                 <input id="submit-btn" type="submit" name="submit" value="Create Account" />
                 <NavLink id="signup" style={{display:'inline', fontSize:'16px'}}  className="nav-link" to="/signin">Already have an account?</NavLink>
-
             </form>
             </div>
-        </div>
-
-        
+        </div> 
     </div>
 
     </>
