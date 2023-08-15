@@ -4,7 +4,7 @@ const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 
 const server=express();
-
+ 
 app.use(cors(
     {
         origin: ["https://text-toolkit.vercel.app"],
