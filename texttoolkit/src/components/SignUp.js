@@ -43,12 +43,11 @@ const SignUp=()=> {
         const response=await axios.post("https://text-toolkit-backend.vercel.app/signup", form, {
         headers:{
             'Content-Type':'application/json',
-            
         }
         })
 
         if (response.ok) {
-            const data = await response.json();
+            const data = response.data;
             const name = data.success;
             console.log(name);
             navigate('/signin');
@@ -57,16 +56,10 @@ const SignUp=()=> {
         else{
             console.log("Sign Up Failed")
         }
-        // console.log(response); // show that the connet with backend server localhost
-        // console.log(form); //form data print
-
     }
-
-
-
+    
   return (
     <>
-
     <div style={{ marginTop: '60px'}}>
         <div id="card">
             <div id="card-content">
@@ -102,12 +95,9 @@ const SignUp=()=> {
 
                 <input id="submit-btn" type="submit" name="submit" value="Create Account" />
                 <NavLink id="signup" style={{display:'inline', fontSize:'16px'}}  className="nav-link" to="/signin">Already have an account?</NavLink>
-
             </form>
             </div>
-        </div>
-
-        
+        </div> 
     </div>
 
     </>
