@@ -14,20 +14,18 @@ server.use(cors(
 ));
 
 server.use(bodyParser.json());
-mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
 
 main().catch(err => console.log(err));
 
-// async function main() {
-//   await mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
-//     console.log("Database Connected");
-//   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
-// }
+async function main() {
+  await mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
+    console.log("Database Connected");
+}
+
 
 const newUsersSchema = new mongoose.Schema({
     userName: String,
     userPassword: String
-
 });
 const User = mongoose.model('newUsers', newUsersSchema);
 
