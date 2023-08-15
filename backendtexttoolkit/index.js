@@ -4,23 +4,25 @@ const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 
 const server=express();
-const corsOptions = {
-  origin: 'https://text-toolkit.vercel.app/signup',
-  methods: 'GET, PUT',
-  credentials: true
-};
 
-server.use(cors(corsOptions));
+app.use(cors(
+    {
+        origin: ["https://text-toolkit.vercel.app"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+));
+
 server.use(bodyParser.json());
-
+mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
 
 main().catch(err => console.log(err));
 
-async function main() {
-  await mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
-    console.log("Database Connected");
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
-}
+// async function main() {
+//   await mongoose.connect('mongodb+srv://rohiit:Kiet9211@cluster0.kw9fxdl.mongodb.net/texttoolkit?retryWrites=true&w=majority');
+//     console.log("Database Connected");
+//   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+// }
 
 const newUsersSchema = new mongoose.Schema({
     userName: String,
@@ -33,7 +35,7 @@ server.get("/", (req,res) =>{
   res.json("TextToolKit");
 });
 
-server.post('/signin',cors(corsOptions),async (req,res)=>{
+server.post('/signin',async (req,res)=>{
   try {
 
     const { userName, userPassword } = req.body;
@@ -56,32 +58,21 @@ server.post('/signin',cors(corsOptions),async (req,res)=>{
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-
-    // let user=new User();
-    // user.userName=req.body.userName;
-    // user.userPassword=req.body.userPassword;
-    // const doc= await user.save();
-
-    // const loginUserName=user.userName;
-
-    // console.log(user.userName);
-    // res.json({loginUserName});
-    // res.send('Hello World!!');
 })
 
 
 server.post('/signup',async (req,res)=>{
-  let user=new User();
-  user.userName=req.body.userName;
-  user.userPassword=req.body.userPassword;
-  
-  const doc= await user.save();
-
-  // const loginUserName=user.userName;
-
-  console.log("User Registered");
-
-  res.send({success:user.userName});
+  const {userName, userPassword} = req.body;
+  User.findOne({userName: userName})
+  .then(user => {
+        if(user) {
+            res.json("Already have an account")
+        } else {
+            User.create({userName: userName, userPassword: userPassword})
+            .then(() => res.send({ success: user.userName }))
+            .catch(err => res.json(err))
+        }
+    }).catch(err => res.json(err))
 })
 
 server.listen(8080,()=>{
