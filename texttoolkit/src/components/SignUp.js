@@ -40,9 +40,11 @@ const SignUp=()=> {
         e.preventDefault();
         validatePassword();
         
-        const response=await axios.post("https://text-toolkit-backend.vercel.app/signup", form, {
+        const response=await fetch('https://text-toolkit-backend.vercel.app/signup',{
+        method:'POST',
+        body:JSON.stringify(form),
         headers:{
-            'Content-Type':'application/json',
+            'Content-Type':'application/json'
         }
         })
 
