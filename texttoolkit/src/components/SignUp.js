@@ -45,12 +45,11 @@ const SignUp=()=> {
         body:JSON.stringify(form),
         headers:{
             'Content-Type':'application/json',
-            'Access-Control-Allow-Origin': '*'
         }
         })
 
         if (response.ok) {
-            const data = response.data;
+            const data = await response.json();
             const name = data.success;
             console.log(name);
             navigate('/signin');
