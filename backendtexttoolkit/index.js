@@ -1,87 +1,51 @@
-const express=require('express');
-const cors=require('cors');
-const bodyParser=require('body-parser');
-const mongoose = require('mongoose');
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const RegisterModel = require('./models/Register')
 
+const app = express()
+app.use(cors());
 
-main().catch(err => console.log(err));
+app.use(express.json())
 
-async function main() {
-  await mongoose.connect('mongodb+srv://texttoolkit:Kietian9211@cluster0.pogtkx8.mongodb.net/texttoolkit?retryWrites=true&w=majority');
-    console.log("Database Connected");
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
-}
+mongoose.connect('mongodb+srv://texttoolkit:Kietian9211@cluster0.pogtkx8.mongodb.net/texttoolkit?retryWrites=true&w=majority');
 
-const newUsersSchema = new mongoose.Schema({
-    userName: String,
-    userPassword: String
-
-});
-const User = mongoose.model('newUsers', newUsersSchema);
-
-
-
-const server=express();
-
-server.use(cors());
-server.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.json("Hello");
+    res.json("Hello");
 })
 
-
-server.post('/signin',async (req,res)=>{
-  try {
-
-    const { userName, userPassword } = req.body;
-    const user = await User.findOne({ userName });
-
-    if (!user) {
-      console.log("user not found");
-      return res.status(401).json({ message: 'User not found' });
-    }
-
-    if (user.userPassword !== userPassword) {
-      console.log("incorrect password");
-      return res.status(401).json({ message: 'Incorrect password' });
-    }
-    console.log("user found");
-
-    res.json({ loginUserName: user.userName });
-  }
-  catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-
-    // let user=new User();
-    // user.userName=req.body.userName;
-    // user.userPassword=req.body.userPassword;
-    // const doc= await user.save();
-
-    // const loginUserName=user.userName;
-
-    // console.log(user.userName);
-    // res.json({loginUserName});
-    // res.send('Hello World!!');
-})
-
-
-server.post('/signup',async (req,res)=>{
-  let user=new User();
-  user.userName=req.body.userName;
-  user.userPassword=req.body.userPassword;
+app.post('/signin',async (req,res)=>{
+    const {userName, userPassword} = req.body;
+    RegisterModel.findOne({userName: userName})
+    .then(user => {
+        if(user) {
+            console.log(user.userName);
+            res.json(user.userName)
+        } else {
+            res.json("User Not Found")
+            .catch(err => res.json(err))
+        }
+    }).catch(err => res.json(err))
   
-  const doc= await user.save();
+  })
 
-  // const loginUserName=user.userName;
 
-  console.log("User Registered");
-
-  res.send({success:user.userName});
+app.post('/signup', (req, res) => {
+    const {userName, userPassword} = req.body;
+    RegisterModel.findOne({userName: userName})
+    .then(user => {
+        if(user) {
+            res.json("Already have an account")
+        } else {
+            RegisterModel.create({userName: userName, userPassword: userPassword})
+            .then(result => res.json(result))
+            .catch(err => res.json(err))
+        }
+    }).catch(err => res.json(err))
 })
 
-server.listen(8080,()=>{
-    console.log("Server startted");
+
+app.listen(3001, () => {
+    console.log("Server is Running")
 })
