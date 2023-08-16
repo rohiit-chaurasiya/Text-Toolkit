@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {NavLink , useNavigate} from "react-router-dom"
+import axios from 'axios';
 import '../css/signup.css'
 import axios from 'axios';
 
@@ -39,11 +40,11 @@ const SignUp=()=> {
         e.preventDefault();
         validatePassword();
         
-        const response=await fetch('http://localhost:8080/signup',{
+        const response=await fetch('https://text-toolkit-backend.vercel.app/signup',{
         method:'POST',
         body:JSON.stringify(form),
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
         }
         })
 
@@ -57,14 +58,14 @@ const SignUp=()=> {
         else{
             console.log("Sign Up Failed")
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 72d50b22833feedda91d7745965563ecde5687d5
     }
-
-
-
+    
   return (
     <>
-
     <div style={{ marginTop: '60px'}}>
         <div id="card">
             <div id="card-content">
@@ -100,12 +101,9 @@ const SignUp=()=> {
 
                 <input id="submit-btn" type="submit" name="submit" value="Create Account" />
                 <NavLink id="signup" style={{display:'inline', fontSize:'16px'}}  className="nav-link" to="/signin">Already have an account?</NavLink>
-
             </form>
             </div>
-        </div>
-
-        
+        </div> 
     </div>
 
     </>
