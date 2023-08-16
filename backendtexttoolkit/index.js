@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/texttoolkit');
+  await mongoose.connect('mongodb+srv://texttoolkit:Kietian9211@cluster0.pogtkx8.mongodb.net/texttoolkit?retryWrites=true&w=majority');
     console.log("Database Connected");
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
@@ -21,12 +21,14 @@ const User = mongoose.model('newUsers', newUsersSchema);
 
 
 
-
-
 const server=express();
 
 server.use(cors());
 server.use(bodyParser.json());
+
+app.get("/", (req, res) => {
+  res.json("Hello");
+})
 
 
 server.post('/signin',async (req,res)=>{
