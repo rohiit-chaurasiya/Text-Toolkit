@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
+import { useContext } from 'react';
 import {NavLink, useNavigate} from "react-router-dom"
 import '../css/login.css'
-// import axios from 'axios';
+import axios from 'axios';
 import { useUsername } from './UsernameContext';
 
 
 const Auth=()=> {
-    const { setUsername } = useUsername();
+    const { setUsername } = useContext(useUsername);
     const navigate = useNavigate();
     const [form,setForm]=useState({});
     const [errorMessage, setErrorMessage] = useState('');
+    axios.defaults.withCredentials=true;
 
     const logInForm =(e)=>{
         console.log(e.target.value,e.target.name);
@@ -47,17 +49,6 @@ const Auth=()=> {
         {
             setErrorMessage('Login failed'); // Display error message
         }
-
-
-        // const data=await response.json();
-        // const name=data.userName;
-        
-        // console.log("Log In Successfully"); // show that the 
-
-        // setUsername(name);
-        // console.log(response); // show that the connet with backend server localhost
-        // console.log(form); //form data print
-
 
     }
 

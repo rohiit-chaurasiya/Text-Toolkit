@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import {NavLink , useNavigate} from "react-router-dom"
 import '../css/signup.css'
-// import axios from 'axios';
+import axios from 'axios';
 
 
 const SignUp=()=> {
     const navigate = useNavigate();
     const [form,setForm]=useState({});
     const [passwordError, setPasswordError] = useState('');
+    axios.defaults.withCredentials=true;
 
 
     const newForm =(e)=>{
@@ -56,8 +57,6 @@ const SignUp=()=> {
         else{
             console.log("Sign Up Failed")
         }
-        // console.log(response); // show that the connet with backend server localhost
-        // console.log(form); //form data print
 
     }
 
