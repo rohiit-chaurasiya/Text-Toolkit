@@ -7,7 +7,7 @@ import { useUsername } from './UsernameContext';
 
 
 const Auth=()=> {
-    const { setUsername } = useContext(useUsername);
+    const { setUsername } = useUsername();
     const navigate = useNavigate();
     const [form,setForm]=useState({});
     const [errorMessage, setErrorMessage] = useState('');
@@ -24,7 +24,7 @@ const Auth=()=> {
         
         e.preventDefault();
          
-        const response=await fetch('https://text-toolkit-backend.vercel.app/signin',{
+        const response=await fetch('http://localhost:8080/signin',{
         method:'POST',
         body:JSON.stringify(form),
         headers:{

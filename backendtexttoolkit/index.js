@@ -3,11 +3,16 @@ const cors=require('cors');
 const bodyParser=require('body-parser');
 const mongoose = require('mongoose');
 
+const server=express();
+
+server.use(cors());
+server.use(bodyParser.json());
+
 
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb+srv://texttoolkit:Kietian9211@cluster0.pogtkx8.mongodb.net/texttoolkit?retryWrites=true&w=majority');
+  await mongoose.connect('mongodb://localhost:27017/texttoolkit');
     console.log("Database Connected");
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
@@ -21,13 +26,10 @@ const User = mongoose.model('newUsers', newUsersSchema);
 
 
 
-const server=express();
 
-server.use(cors());
-server.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-  res.json("Hello");
+server.get("/", (req, res) => {
+    res.json("Hello");
 })
 
 
@@ -54,17 +56,6 @@ server.post('/signin',async (req,res)=>{
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
-
-    // let user=new User();
-    // user.userName=req.body.userName;
-    // user.userPassword=req.body.userPassword;
-    // const doc= await user.save();
-
-    // const loginUserName=user.userName;
-
-    // console.log(user.userName);
-    // res.json({loginUserName});
-    // res.send('Hello World!!');
 })
 
 
